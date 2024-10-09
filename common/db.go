@@ -25,7 +25,7 @@ func InitDB() error {
 		return err
 	}
 
-	db = client.Database("go_demo")
+	db = client.Database("go_players")
 
 	return nil
 }

@@ -15,6 +15,7 @@ func main() {
 
 	err := run()
 
+	// interrupt app if err
 	if err != nil {
 		panic(err)
 	}

@@ -7,7 +7,7 @@ import (
 )
 
 func LoadEnv() error {
-	// check if prod
+	// check if prod or local
 	prod := os.Getenv("PROD")
 
 	if prod != "true" {

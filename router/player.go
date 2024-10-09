@@ -21,7 +21,7 @@ func AddPlayerGroup(app *fiber.App) {
 
 // Get players func
 func getPlayers(c *fiber.Ctx) error {
-	coll := common.GetDBCollection("books")
+	coll := common.GetDBCollection("players")
 
 	// find all players
 	players := make([]model.Player, 0)
@@ -80,7 +80,7 @@ func getPlayer(c *fiber.Ctx) error {
 type createDTO struct {
 	Nickname string `json:"nickname" bson:"nickname"`
 	Fraction string `json:"fraction" bson:"fraction"`
-	Level    string `json:"level" bson:"level:"`
+	Level    string `json:"level" bson:"level"`
 }
 
 // Create player func
@@ -110,9 +110,9 @@ func createPlayer(c *fiber.Ctx) error {
 }
 
 type updateDTO struct {
-	Nickname string `json:"nickname" bson:"nickname"`
-	Fraction string `json:"fraction" bson:"fraction"`
-	Level    string `json:"level" bson:"level:"`
+	Nickname string `json:"nickname,omitempty" bson:"nickname,omitempty"`
+	Fraction string `json:"fraction,omitempty" bson:"fraction,omitempty"`
+	Level    string `json:"level,omitempty" bson:"level,omitempty"`
 }
 
 // Update player func
@@ -140,7 +140,7 @@ func updatePlayer(c *fiber.Ctx) error {
 	}
 
 	// update the player
-	coll := common.GetDBCollection("books")
+	coll := common.GetDBCollection("players")
 	result, err := coll.UpdateOne(c.Context(), bson.M{"_id": objectId}, bson.M{"$set": b})
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
@@ -171,7 +171,7 @@ func deletePlayer(c *fiber.Ctx) error {
 	}
 
 	// delete the player
-	coll := common.GetDBCollection("books")
+	coll := common.GetDBCollection("players")
 	result, err := coll.DeleteOne(c.Context(), bson.M{"_id": objectId})
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
